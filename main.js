@@ -9,6 +9,15 @@ const shootButton = document.getElementById("shoot-button");
 const reloadButton = document.getElementById("reload-button");
 const safetySwitch = document.getElementById("safety-lock");
 
+var rifleShoot = new Audio('./audio/fucile-colpo.mp3');
+var rifleReload = new Audio('./audio/fucile-ricarica.wav');
+var pistolShoot = new Audio('./audio/pistola-colpo.mp3');
+var pistolReload = new Audio('./audio/pistola-ricarica.mp3');
+
+function testAudio(){
+    rifleReload.play();
+}
+
 let newWeapon;
 
 let weaponStack = [
@@ -92,6 +101,12 @@ shootButton.addEventListener("click", function(){
     if (!safetySwitch.checked){
         if (newWeapon.current_ammo > 0){
             displayMunitions.innerHTML = newWeapon.shoot();
+            if (newWeapon.type == "Assault Rifle"){
+                rifleShoot.play();
+            }
+            else if (newWeapon.type == "Handgun" || newWeapon.type == "Submachine gun"){
+                pistolShoot.play();
+            }
         }
         else {
             alert("You have finished your bullets! It's time to reload.");
@@ -106,6 +121,12 @@ reloadButton.addEventListener("click", function(){
     if (newWeapon.current_ammo < newWeapon.max_ammo){
         newWeapon.current_ammo = newWeapon.reload();
         displayMunitions.innerHTML = newWeapon.reload();
+        if (newWeapon.type == "Assault Rifle"){
+            rifleReload.play();
+        }
+        else if (newWeapon.type == "Handgun" || newWeapon.type == "Submachine gun"){
+            pistolReload.play();
+        }
     }
     else {
         alert("The weapon is full of ammo. You can't reload right now");
