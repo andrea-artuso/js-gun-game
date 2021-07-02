@@ -7,10 +7,12 @@ html {
     height: 100%;
 }
 body {
+    width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 button {
     padding: 4px 9px;
@@ -24,4 +26,25 @@ button {
     display: flex;
     justify-content: space-between;
     margin-bottom: 35px;
+}
+.image-wrapper {
+    max-width: 650px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.image-wrapper > img {
+    width: 650px;
+}
+
+.selectMenu {
+    position: absolute;
+    top: 40px;
+    left: 60px;
+    text-align: left;
+}
+.selectMenu > form > div {
+    display: block;
+    margin: 8px 0;
 }

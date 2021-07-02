@@ -11,12 +11,48 @@
 <body>
     
     <div id="root">
+        <div class="selectMenu">
+            <form>
+                <!-- first -->
+                <div>
+                    <input type="radio" name="selectWeapon" id="firstW" checked>
+                    <label for="firstW">M4A1</label>
+                </div>
+                <!-- second -->
+                <div>
+                    <input type="radio" name="selectWeapon" id="secondW">
+                    <label for="secondW">AK47</label>
+                </div>
+                <!-- third -->
+                <div>
+                    <input type="radio" name="selectWeapon" id="thirdW">
+                    <label for="thirdW">MP5</label>
+                </div>
+                <!-- fourth -->
+                <div>
+                    <input type="radio" name="selectWeapon" id="fourthW">
+                    <label for="fourthW">G36</label>
+                </div>
+                <!-- fifth -->
+                <div>
+                    <input type="radio" name="selectWeapon" id="fifthW">
+                    <label for="fifthW">COLT 1911</label>
+                </div>
+
+                <button type="button" id="update-weapon" onclick="changeWeapon()">Update</button>
+            </form>
+        </div>
+
         <div id="info-container">
             <span id="weapon-name" title="name">M4A1</span>
             <span id="weapon-type" title="type">Assault Rifle</span>
             <span id="weapon-munitions" title="munitions">30</span>
         </div>
-        <img id="gun-image">
+
+        <div class="image-wrapper">
+            <img id="gun-image">
+        </div>
+
         <div id="button-container">
             <button id="shoot-button">Shoot</button>
             <button id="reload-button">Reload</button>

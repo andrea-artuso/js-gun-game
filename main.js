@@ -1,4 +1,5 @@
 const image = document.getElementById("gun-image");
+let radios = document.getElementsByName("selectWeapon");
 
 const displayName = document.getElementById("weapon-name");
 const displayType = document.getElementById("weapon-type");
@@ -7,6 +8,36 @@ const displayMunitions = document.getElementById("weapon-munitions");
 const shootButton = document.getElementById("shoot-button");
 const reloadButton = document.getElementById("reload-button");
 const safetySwitch = document.getElementById("safety-lock");
+
+let newWeapon;
+
+let weaponStack = [
+    {
+        name: "M4A1",
+        type: "Assault Rifle",
+        max_ammo: 30
+    },
+    {
+        name: "Ak 47",
+        type: "Assault Rifle",
+        max_ammo: 40
+    },
+    {
+        name: "MP5",
+        type: "Submachine gun",
+        max_ammo: 15
+    },
+    {
+        name: "G36",
+        type: "Assault Rifle",
+        max_ammo: 30
+    },
+    {
+        name: "Colt 1911",
+        type: "Handgun",
+        max_ammo: 8
+    }
+]
 
 class Weapon{
     constructor(name, type, max_ammo){
@@ -24,24 +55,47 @@ class Weapon{
     }
 }
 
-const newWeapon = new Weapon("M4A1", "Assault Rifle", 30);
+let weaponName="M4A1", weaponType="Assault Rifle", weaponMax_ammo=30;
 
-//Render DOM
-let lowerCaseName = newWeapon.name.toLowerCase();
-const coreLink = 'https://objectweaponsimages.s3.eu-south-1.amazonaws.com/';
-const finalLink = coreLink + lowerCaseName + ".jpg";
+function changeWeapon(){
+    for (let i=0; i<radios.length; i++){
+        if (radios[i].checked){
+            weaponName = weaponStack[i].name;
+            weaponType = weaponStack[i].type;
+            weaponMax_ammo = weaponStack[i].max_ammo;
+        }
+    }
+    newWeapon = new Weapon(weaponName, weaponType, weaponMax_ammo);
+    renderItems();
+}
 
-image.setAttribute("src", finalLink);
-image.setAttribute("alt", newWeapon.name);
 
-displayName.innerHTML = newWeapon.name;
-displayType.innerHTML = newWeapon.type;
-displayMunitions.innerHTML = newWeapon.current_ammo;
+function renderItems(){
+    let lowerCaseName = newWeapon.name.toLowerCase();
+    const coreLink = 'https://objectweaponsimages.s3.eu-south-1.amazonaws.com/';
+    const finalLink = coreLink + lowerCaseName.replace(/\s+/g, '') + ".jpg";
+    
+    image.setAttribute("src", finalLink);
+    image.setAttribute("alt", newWeapon.name);
+    
+    displayName.innerHTML = newWeapon.name;
+    displayType.innerHTML = newWeapon.type;
+    displayMunitions.innerHTML = newWeapon.current_ammo;
+}
+
+//Initialize onLoad
+window.onload = changeWeapon();
+
 
 //Apply methods
 shootButton.addEventListener("click", function(){
     if (!safetySwitch.checked){
-        displayMunitions.innerHTML = newWeapon.shoot();
+        if (newWeapon.current_ammo > 0){
+            displayMunitions.innerHTML = newWeapon.shoot();
+        }
+        else {
+            alert("You have finished your bullets! It's time to reload.");
+        }
     }
     else {
         alert("Remove the safety lock to shoot");
@@ -49,8 +103,6 @@ shootButton.addEventListener("click", function(){
 });
 
 reloadButton.addEventListener("click", function(){
-    console.log("current: "+newWeapon.current_ammo);
-    console.log("max: "+newWeapon.max_ammo);
     if (newWeapon.current_ammo < newWeapon.max_ammo){
         newWeapon.current_ammo = newWeapon.reload();
         displayMunitions.innerHTML = newWeapon.reload();
