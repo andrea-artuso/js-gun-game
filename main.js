@@ -14,9 +14,6 @@ var rifleReload = new Audio('./audio/fucile-ricarica.wav');
 var pistolShoot = new Audio('./audio/pistola-colpo.mp3');
 var pistolReload = new Audio('./audio/pistola-ricarica.mp3');
 
-function testAudio(){
-    rifleReload.play();
-}
 
 let newWeapon;
 
