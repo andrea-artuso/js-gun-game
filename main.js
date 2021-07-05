@@ -95,6 +95,8 @@ window.onload = changeWeapon();
 
 //Apply methods
 shootButton.addEventListener("click", function(){
+    rifleShoot.load();
+    pistolShoot.load();
     if (!safetySwitch.checked){
         if (newWeapon.current_ammo > 0){
             displayMunitions.innerHTML = newWeapon.shoot();
